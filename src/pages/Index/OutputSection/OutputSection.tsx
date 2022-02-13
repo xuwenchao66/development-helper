@@ -1,12 +1,12 @@
 import React from 'react'
 import { Wrapper } from './style'
 
-const Index: React.FC = () => {
+const OutputSection: React.FC = () => {
   return (
     <Wrapper>
-      <div>123</div>
+      <div>OutputSection</div>
     </Wrapper>
   )
 }
 
-export default Index
+export default OutputSection
