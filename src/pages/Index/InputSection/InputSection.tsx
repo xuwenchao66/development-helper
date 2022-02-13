@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Input } from 'antd'
+import { useDebounceFn } from 'ahooks'
 import { Wrapper } from './style'
 import { parse, Key } from './parse'
 
@@ -18,12 +19,17 @@ export type InputSectionProps = {
 
 const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
   const [json, setValue] = useState('')
+  const handleParse = (value: string) => {
+    const [data, keys] = parse(value)
+    onChange(data, keys)
+  }
+  const { run: debounceHandleParse } = useDebounceFn(handleParse, { wait: 200 })
+
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     try {
       const { value } = e.target
-      const [data, keys] = parse(value)
       setValue(JSON.stringify(JSON.parse(value), null, 2))
-      onChange(data, keys)
+      debounceHandleParse(value)
     } catch (error) {
       setValue('')
       onChange([], [])
