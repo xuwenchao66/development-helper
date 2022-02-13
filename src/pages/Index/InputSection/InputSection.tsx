@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Input } from 'antd'
 import { Wrapper } from './style'
@@ -17,14 +17,24 @@ export type InputSectionProps = {
 }
 
 const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
+  const [json, setValue] = useState('')
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const [data, keys] = parse(e.target.value)
-    onChange && onChange(data, keys)
+    try {
+      const { value } = e.target
+      const [data, keys] = parse(value)
+      setValue(JSON.stringify(JSON.parse(value), null, 2))
+      onChange(data, keys)
+    } catch (error) {
+      setValue('')
+      onChange([], [])
+      console.error(error)
+    }
   }
 
   return (
     <Wrapper>
       <StyledTextArea
+        value={json}
         placeholder="please input your JSON..."
         onChange={handleChange}
       />
