@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { SectionCommon } from '../../../styles'
 
 export const Wrapper = styled.div`
-  ${SectionCommon};
+  overflow-y: auto;
+  flex: 1.5;
 `

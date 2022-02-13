@@ -1,3 +1,4 @@
-import InputSection from './InputSection'
+import InputSection, { InputSectionProps } from './InputSection'
 
 export { InputSection }
+export type { InputSectionProps }
