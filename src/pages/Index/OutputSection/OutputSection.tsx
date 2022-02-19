@@ -1,10 +1,8 @@
 import React, { ComponentProps, useState, useEffect } from 'react'
-import { Tree, Input } from 'antd'
+import { Tree } from 'antd'
 import styled from 'styled-components'
-import isString from 'lodash/isString'
 import { Wrapper } from './style'
 
-const { Search } = Input
 const StyledTree = styled(Tree)`
   resize: none;
   & .ant-tree-node-content-wrapper {
@@ -23,7 +21,6 @@ const OutputSection: React.FC<OutputSectionProps> = ({
   defaultExpandedKeys = []
 }) => {
   const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
-  const [highlight, setHighlightWords] = useState('')
   const onExpand = (expandedKeysValue: React.Key[]) => {
     setExpandedKeys(expandedKeysValue)
   }
@@ -34,19 +31,10 @@ const OutputSection: React.FC<OutputSectionProps> = ({
 
   return (
     <Wrapper>
-      <Search
-        placeholder="Hight light"
-        onChange={(e) => setHighlightWords(e.target.value)}
-      />
       <StyledTree
         showLine={{ showLeafIcon: false }}
         onExpand={onExpand}
         treeData={treeData}
-        filterTreeNode={(node) => {
-          if (!highlight) return false
-          if (isString(node.title)) return node.title.indexOf(highlight) !== -1
-          return true
-        }}
         expandedKeys={expandedKeys}
       />
     </Wrapper>
