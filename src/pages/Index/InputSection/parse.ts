@@ -1,4 +1,5 @@
 import { DataNode } from 'rc-tree/lib/interface'
+import { parseJson } from '../../../utils'
 import uniqueId from 'lodash/uniqueId'
 import _isObject from 'lodash/isObject'
 import _isString from 'lodash/isString'
@@ -24,8 +25,9 @@ export const parse = (
   dataKeys.forEach((key) => {
     let value = data[key]
     if (isStringifyObject(value) || isStringifyArray(value)) {
-      value = JSON.parse(value)
+      value = parseJson(value)
     }
+    if (_isString(value)) value = `"${value}"`
 
     const isObject = _isObject(value)
     const isArray = Array.isArray(value)

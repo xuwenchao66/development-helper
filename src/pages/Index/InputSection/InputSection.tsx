@@ -4,6 +4,7 @@ import { Input } from 'antd'
 import { useDebounceFn } from 'ahooks'
 import { Wrapper } from './style'
 import { parse, Key } from './parse'
+import { parseJson } from '../../../utils'
 
 const { TextArea } = Input
 const StyledTextArea = styled(TextArea)`
@@ -14,26 +15,33 @@ const StyledTextArea = styled(TextArea)`
 `
 
 export type InputSectionProps = {
-  onChange: (data: any[], keys: Key[]) => void
+  onChange: (error: any, data: any[], keys: Key[]) => void
 }
 
 const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
   const [json, setValue] = useState('')
+
   const handleParse = (value: string) => {
-    const [data, keys] = parse(JSON.parse(value))
-    onChange(data, keys)
+    const [data, keys] = parse(parseJson(value))
+    onChange(null, data, keys)
   }
+
   const { run: debounceHandleParse } = useDebounceFn(handleParse, { wait: 200 })
 
-  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    try {
-      const { value } = e.target
+  const handelClear = (error: any, value: string) => {
+    setValue(value)
+    onChange(error, [], [])
+  }
 
-      setValue(JSON.stringify(JSON.parse(value), null, 2))
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    const { value } = e.target
+    if (!value) return handelClear(null, value)
+
+    try {
+      setValue(JSON.stringify(parseJson(value), null, 2))
       debounceHandleParse(value)
-    } catch (error) {
-      setValue('')
-      onChange([], [])
+    } catch (error: any) {
+      handelClear(error, value)
     }
   }
 
