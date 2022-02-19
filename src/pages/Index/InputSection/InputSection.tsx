@@ -20,7 +20,7 @@ export type InputSectionProps = {
 const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
   const [json, setValue] = useState('')
   const handleParse = (value: string) => {
-    const [data, keys] = parse(value)
+    const [data, keys] = parse(JSON.parse(value))
     onChange(data, keys)
   }
   const { run: debounceHandleParse } = useDebounceFn(handleParse, { wait: 200 })
@@ -28,12 +28,12 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     try {
       const { value } = e.target
+
       setValue(JSON.stringify(JSON.parse(value), null, 2))
       debounceHandleParse(value)
     } catch (error) {
       setValue('')
       onChange([], [])
-      console.error(error)
     }
   }
 
