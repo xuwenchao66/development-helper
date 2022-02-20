@@ -4,7 +4,7 @@ import { Input } from 'antd'
 import { useDebounceFn } from 'ahooks'
 import { Wrapper } from './style'
 import { parse, Key } from './parse'
-import { parseJson } from '../../../utils'
+import { parseJson } from '@/utils/index'
 
 const { TextArea } = Input
 const StyledTextArea = styled(TextArea)`

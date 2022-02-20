@@ -1,5 +1,5 @@
 import { DataNode } from 'rc-tree/lib/interface'
-import { parseJson } from '../../../utils'
+import { parseJson } from '@/utils'
 import uniqueId from 'lodash/uniqueId'
 import _isObject from 'lodash/isObject'
 import _isString from 'lodash/isString'
