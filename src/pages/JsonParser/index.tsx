@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { InputSection, InputSectionProps } from './InputSection'
 import { OutputSection } from './OutputSection'
-import { Wrapper } from './style'
+import Container from './Container'
 
-const Index: React.FC = () => {
+const JsonParser: React.FC = () => {
   const [parsedObj, setParsedObj] = useState<any[]>([])
   const [errorMsg, setErrorMsg] = useState('')
   const [defaultExpandedKeys, setDefaultExpandedKeys] = useState<any[]>([])
@@ -15,15 +15,15 @@ const Index: React.FC = () => {
   }
 
   return (
-    <Wrapper>
+    <Container>
       <InputSection onChange={onChange} />
       <OutputSection
         treeData={parsedObj}
         errorMsg={errorMsg}
         defaultExpandedKeys={defaultExpandedKeys}
       />
-    </Wrapper>
+    </Container>
   )
 }
 
-export default Index
+export default JsonParser

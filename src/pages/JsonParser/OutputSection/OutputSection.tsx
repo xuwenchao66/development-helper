@@ -1,16 +1,7 @@
 import React, { ComponentProps, useState, useEffect } from 'react'
-import { Tree } from 'antd'
-import styled from 'styled-components'
+import Tree from './Tree'
 import { Result } from 'antd'
-import { Wrapper } from './style'
-
-const StyledTree = styled(Tree)`
-  resize: none;
-  & .ant-tree-node-content-wrapper {
-    word-break: break-all;
-    user-select: auto;
-  }
-`
+import Container from './Container'
 
 type OutputSectionProps = {
   treeData: ComponentProps<typeof Tree>['treeData']
@@ -33,7 +24,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
   }, [defaultExpandedKeys])
 
   return (
-    <Wrapper>
+    <Container>
       {errorMsg ? (
         <Result
           status="error"
@@ -41,14 +32,14 @@ const OutputSection: React.FC<OutputSectionProps> = ({
           subTitle={errorMsg}
         ></Result>
       ) : (
-        <StyledTree
+        <Tree
           showLine={{ showLeafIcon: false }}
           onExpand={onExpand}
           treeData={treeData}
           expandedKeys={expandedKeys}
         />
       )}
-    </Wrapper>
+    </Container>
   )
 }
 

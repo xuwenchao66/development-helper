@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Input } from 'antd'
 import { useDebounceFn } from 'ahooks'
-import { Wrapper } from './style'
+import Container from './Container'
 import { parse, Key } from './parse'
 import { parseJson } from '@/utils/index'
 
@@ -35,6 +35,7 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.target
+    console.log(value)
     if (!value) return handelClear(null, value)
 
     try {
@@ -42,17 +43,18 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
       debounceHandleParse(value)
     } catch (error: any) {
       handelClear(error, value)
+      console.error(error)
     }
   }
 
   return (
-    <Wrapper>
+    <Container>
       <StyledTextArea
         value={json}
         placeholder="please input your JSON..."
         onChange={handleChange}
       />
-    </Wrapper>
+    </Container>
   )
 }
 
