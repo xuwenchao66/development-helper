@@ -1,17 +1,13 @@
 import { DataNode } from 'rc-tree/lib/interface'
-import { parseJson } from '@/utils'
+import { parseJson, isStringifyObject, isStringifyArray } from '@/utils'
+import JsonKey from './JsonKey'
+import JsonValue from './JsonValue'
 import uniqueId from 'lodash/uniqueId'
 import _isObject from 'lodash/isObject'
 import _isString from 'lodash/isString'
 import _isEmpty from 'lodash/isEmpty'
 
 export type Key = number | string
-
-const isStringifyObject = (value: any) =>
-  _isString(value) && /^\{.*\}$/.test(value)
-
-const isStringifyArray = (value: any) =>
-  _isString(value) && /^\[.*\]$/.test(value)
 
 export const parse = (
   data: { [key: string | number]: any },
@@ -36,17 +32,27 @@ export const parse = (
     const isEmptyArray = isArray && isEmpty
     const uniqueKey = uniqueId()
 
-    let title = ''
+    let displayedValue: any = value
+    let displayedValueColor
+
     if (isEmptyArray) {
-      title = `${key}: [ ]`
+      displayedValue = '[ ]'
+      displayedValueColor = '#000'
     } else if (isEmptyObj) {
-      title = `${key}: { }`
+      displayedValue = '{ }'
+      displayedValueColor = '#000'
     } else if (isObject) {
-      title = key
-    } else {
-      title = `${key} : ${value}`
+      displayedValue = ''
     }
-    const node: DataNode = { title, key: uniqueKey }
+
+    const Title = (
+      <>
+        <JsonKey title={key} />
+        <JsonValue title={displayedValue} color={displayedValueColor} />
+      </>
+    )
+
+    const node: DataNode = { title: Title, key: uniqueKey }
     if (isObject || isArray) node.children = parse(value, keys)[0]
 
     keys.push(uniqueKey)
