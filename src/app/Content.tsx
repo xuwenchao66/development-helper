@@ -4,7 +4,7 @@ const { Content } = Layout
 
 const StyledContent = styled(Content)`
   display: flex;
-  padding: 24px;
+  padding: 20px;
   height: calc(100vh - 64px);
 `
 

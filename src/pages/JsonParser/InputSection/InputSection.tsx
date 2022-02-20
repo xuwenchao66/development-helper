@@ -1,18 +1,9 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
-import { Input } from 'antd'
 import { useDebounceFn } from 'ahooks'
 import Container from './Container'
 import { parse, Key } from './parse'
+import TextArea from './TextArea'
 import { parseJson } from '@/utils/index'
-
-const { TextArea } = Input
-const StyledTextArea = styled(TextArea)`
-  resize: none;
-  &.ant-input {
-    height: 100%;
-  }
-`
 
 export type InputSectionProps = {
   onChange: (error: any, data: any[], keys: Key[]) => void
@@ -49,7 +40,7 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
 
   return (
     <Container>
-      <StyledTextArea
+      <TextArea
         value={json}
         placeholder="please input your JSON..."
         onChange={handleChange}
