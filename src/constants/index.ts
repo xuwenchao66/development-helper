@@ -1,15 +1,15 @@
 export const ROUTE_PATHS = {
-  JsonParser: '/json-parser',
-  StringTransformer: '/string-transformer'
+  JsonParse: '/json-parse',
+  StringTransform: '/string-transform'
 }
 
 export const MENUS = [
   {
-    title: 'Json Parser',
-    path: ROUTE_PATHS.JsonParser
+    title: 'Json Parse',
+    path: ROUTE_PATHS.JsonParse
   },
   {
-    title: 'String Transformer',
-    path: ROUTE_PATHS.StringTransformer
+    title: 'String Transform',
+    path: ROUTE_PATHS.StringTransform
   }
 ]
