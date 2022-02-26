@@ -1,29 +1,37 @@
-import { Layout } from 'antd'
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MENUS } from '@/constants'
+import Layout from './Layout'
 import Content from './Content'
-import Header from './Header'
 import Menu from './Menu'
 import Router from './Router'
 
+const { Sider } = Layout
+
 const App = () => {
   const location = useLocation()
+  const [collapsed, setCollapsed] = useState(false)
+  const onCollapse = () => setCollapsed(!collapsed)
 
   return (
-    <Layout className="App">
-      <Header>
+    <Layout>
+      <Sider collapsible collapsed={collapsed} onCollapse={onCollapse}>
         <Menu
-          theme="light"
-          mode="horizontal"
+          theme="dark"
+          mode="inline"
           selectedKeys={[location.pathname]}
+          inlineCollapsed={collapsed}
         >
-          {MENUS.map((menu) => (
-            <Menu.Item key={menu.path}>
-              <Link to={menu.path}>{menu.title}</Link>
-            </Menu.Item>
-          ))}
+          {MENUS.map(({ title, path }) => {
+            const menuTitle = collapsed ? title[0] : title
+            return (
+              <Menu.Item key={path} title={title}>
+                <Link to={path}>{menuTitle}</Link>
+              </Menu.Item>
+            )
+          })}
         </Menu>
-      </Header>
+      </Sider>
       <Content>
         <Router />
       </Content>
