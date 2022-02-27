@@ -1,12 +1,12 @@
-import React from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
-type Props = {
+interface JsonKeyProps {
   title: string
   className?: string
 }
 
-const JsonKey: React.FC<Props> = ({ title, className }) => (
+const JsonKey: FC<JsonKeyProps> = ({ title, className }) => (
   <span className={className}>{`${title} : `}</span>
 )
 

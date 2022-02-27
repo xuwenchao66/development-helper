@@ -1,4 +1,4 @@
-import { ComponentProps } from 'react'
+import { FC, ComponentProps } from 'react'
 import { Card as AntdCard } from 'antd'
 import styled from 'styled-components'
 import { BLOCK_PADDING } from '@/styles/theme'
@@ -9,7 +9,11 @@ interface BlockProps extends ComponentProps<typeof AntdCard> {
   bodyPadding: number
 }
 
-const Block = styled(AntdCard).attrs((props: BlockProps) => ({
+const Block: FC<BlockProps> = ({ span, bodyPadding, children, ...props }) => (
+  <AntdCard {...props}>{children}</AntdCard>
+)
+
+export default styled(Block).attrs((props: BlockProps) => ({
   span: props.span || 1,
   bodyPadding: isUndefined(props.bodyPadding)
     ? BLOCK_PADDING
@@ -25,5 +29,3 @@ const Block = styled(AntdCard).attrs((props: BlockProps) => ({
     padding: ${({ bodyPadding }) => `${bodyPadding}px`};
   }
 `
-
-export default Block

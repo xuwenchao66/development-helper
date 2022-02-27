@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import { FC, useState, memo } from 'react'
 import { InputSection, InputSectionProps } from './InputSection'
 import { OutputSection } from './OutputSection'
 import Container from './Container'
 
-const JsonParser: React.FC = () => {
+const JsonParser: FC = memo(() => {
   const [parsedObj, setParsedObj] = useState<any[]>([])
   const [errorMsg, setErrorMsg] = useState('')
   const [defaultExpandedKeys, setDefaultExpandedKeys] = useState<any[]>([])
 
-  const onChange: InputSectionProps['onChange'] = (error, data, keys) => {
+  const onParse: InputSectionProps['onParse'] = (error, data, keys) => {
     setErrorMsg(error ? error.message : '')
     setParsedObj(data)
     setDefaultExpandedKeys(keys)
@@ -16,7 +16,7 @@ const JsonParser: React.FC = () => {
 
   return (
     <Container>
-      <InputSection onChange={onChange} />
+      <InputSection onParse={onParse} />
       <OutputSection
         treeData={parsedObj}
         errorMsg={errorMsg}
@@ -24,6 +24,6 @@ const JsonParser: React.FC = () => {
       />
     </Container>
   )
-}
+})
 
 export default JsonParser

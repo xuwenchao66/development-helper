@@ -1,4 +1,4 @@
-import React from 'react'
+import { FC } from 'react'
 import styled from 'styled-components'
 
 const COLORS_MAP = {
@@ -7,13 +7,13 @@ const COLORS_MAP = {
   boolean: '#f98280'
 }
 
-type Props = {
+interface JsonValueProps {
   title: any
   color?: string
   className?: string
 }
 
-const JsonValue: React.FC<Props> = ({ title, className }) => (
+const JsonValue: FC<JsonValueProps> = ({ title, className }) => (
   <span className={className}>{`${title}`}</span>
 )
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import { FC } from 'react'
 
-const StringTransformer: React.FC = () => {
+const StringTransform: FC = () => {
   return <div>StringTransform</div>
 }
 
-export default StringTransformer
+export default StringTransform

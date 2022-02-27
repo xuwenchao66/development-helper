@@ -1,7 +1,7 @@
-import React, { ComponentProps, useState, useEffect } from 'react'
+import { FC, Key, ComponentProps, useState, useEffect } from 'react'
 import Block from '../Block'
 import Tree from './Tree'
-import { Result } from 'antd'
+import ErrorResult from './ErrorResult'
 
 type OutputSectionProps = {
   treeData: ComponentProps<typeof Tree>['treeData']
@@ -9,13 +9,13 @@ type OutputSectionProps = {
   defaultExpandedKeys?: ComponentProps<typeof Tree>['defaultExpandedKeys']
 }
 
-const OutputSection: React.FC<OutputSectionProps> = ({
+const OutputSection: FC<OutputSectionProps> = ({
   treeData,
   defaultExpandedKeys = [],
   errorMsg
 }) => {
-  const [expandedKeys, setExpandedKeys] = useState<React.Key[]>([])
-  const onExpand = (expandedKeysValue: React.Key[]) => {
+  const [expandedKeys, setExpandedKeys] = useState<Key[]>([])
+  const onExpand = (expandedKeysValue: Key[]) => {
     setExpandedKeys(expandedKeysValue)
   }
 
@@ -26,11 +26,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
   return (
     <Block title="Output" span={1.5}>
       {errorMsg ? (
-        <Result
-          status="error"
-          title="Parse Failed"
-          subTitle={errorMsg}
-        ></Result>
+        <ErrorResult subTitle={errorMsg}></ErrorResult>
       ) : (
         <Tree
           showLine={{ showLeafIcon: false }}
