@@ -23,6 +23,9 @@ export default styled(Block).attrs((props: BlockProps) => ({
   flex: ${({ span }) => span};
   flex-direction: column;
   height: 100%;
+  & .ant-card-head {
+    margin-bottom: 0;
+  }
   & .ant-card-body {
     flex: 1;
     overflow-y: auto;
