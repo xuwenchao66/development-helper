@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDebounceFn } from 'ahooks'
-import Container from './Container'
+import { parseJson } from '@/utils/index'
+import Block from '../Block'
 import { parse, Key } from './parse'
 import TextArea from './TextArea'
-import { parseJson } from '@/utils/index'
 
 export type InputSectionProps = {
   onChange: (error: any, data: any[], keys: Key[]) => void
@@ -26,7 +26,6 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
 
   const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     const { value } = e.target
-    console.log(value)
     if (!value) return handelClear(null, value)
 
     try {
@@ -34,18 +33,18 @@ const InputSection: React.FC<InputSectionProps> = ({ onChange }) => {
       debounceHandleParse(value)
     } catch (error: any) {
       handelClear(error, value)
-      console.error(error)
     }
   }
 
   return (
-    <Container>
+    <Block title="Input" bodyPadding={0}>
       <TextArea
+        bordered={false}
         value={json}
         placeholder="please input your JSON..."
         onChange={handleChange}
       />
-    </Container>
+    </Block>
   )
 }
 

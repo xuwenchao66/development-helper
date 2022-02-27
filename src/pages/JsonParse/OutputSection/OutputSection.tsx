@@ -1,7 +1,7 @@
 import React, { ComponentProps, useState, useEffect } from 'react'
+import Block from '../Block'
 import Tree from './Tree'
 import { Result } from 'antd'
-import Container from './Container'
 
 type OutputSectionProps = {
   treeData: ComponentProps<typeof Tree>['treeData']
@@ -24,7 +24,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
   }, [defaultExpandedKeys])
 
   return (
-    <Container>
+    <Block title="Output" span={1.5}>
       {errorMsg ? (
         <Result
           status="error"
@@ -39,7 +39,7 @@ const OutputSection: React.FC<OutputSectionProps> = ({
           expandedKeys={expandedKeys}
         />
       )}
-    </Container>
+    </Block>
   )
 }
 
