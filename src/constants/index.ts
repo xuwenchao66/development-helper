@@ -13,3 +13,7 @@ export const MENUS = [
     path: ROUTE_PATHS.StringTransform
   }
 ]
+
+export const LOCAL_STORAGE_KEYS = {
+  siderCollapsed: 'siderCollapsed'
+}

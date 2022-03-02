@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MENUS } from '@/constants'
+import { useLocalStorageState } from 'ahooks'
+import { LOCAL_STORAGE_KEYS } from '@/constants'
 import Layout from './Layout'
 import Content from './Content'
 import Menu from './Menu'
@@ -10,7 +11,10 @@ const { Sider } = Layout
 
 const App = () => {
   const location = useLocation()
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useLocalStorageState(
+    LOCAL_STORAGE_KEYS.siderCollapsed,
+    { defaultValue: false }
+  )
   const onCollapse = () => setCollapsed(!collapsed)
 
   return (
