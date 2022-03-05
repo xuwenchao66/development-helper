@@ -1,26 +1,26 @@
 import { FC, ComponentProps } from 'react'
 import { Card as AntdCard } from 'antd'
-import styled from 'styled-components'
+import styled, { CSSProperties } from 'styled-components'
 import { BLOCK_PADDING } from '@/styles/theme'
 import { isUndefined } from 'lodash'
 
 interface BlockProps extends ComponentProps<typeof AntdCard> {
-  span: number
+  flex: CSSProperties['flex']
   bodyPadding: number
 }
 
-const Block: FC<BlockProps> = ({ span, bodyPadding, children, ...props }) => (
+const Block: FC<BlockProps> = ({ flex, bodyPadding, children, ...props }) => (
   <AntdCard {...props}>{children}</AntdCard>
 )
 
 export default styled(Block).attrs((props: BlockProps) => ({
-  span: props.span || 1,
+  flex: props.flex,
   bodyPadding: isUndefined(props.bodyPadding)
     ? BLOCK_PADDING
     : props.bodyPadding
 }))`
   display: flex;
-  flex: ${({ span }) => span};
+  flex: ${({ flex }) => flex};
   flex-direction: column;
   height: 100%;
   & .ant-card-head {

@@ -1,5 +1,5 @@
 import { FC, Key, ComponentProps, useState, useEffect } from 'react'
-import Block from '../Block'
+import Block from '@/components/Block'
 import Tree from './Tree'
 import ErrorResult from './ErrorResult'
 
@@ -24,7 +24,7 @@ const OutputSection: FC<OutputSectionProps> = ({
   }, [defaultExpandedKeys])
 
   return (
-    <Block title="Output" span={1.5}>
+    <Block title="Output" flex={1.5}>
       {errorMsg ? (
         <ErrorResult subTitle={errorMsg}></ErrorResult>
       ) : (

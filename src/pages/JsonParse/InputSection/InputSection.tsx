@@ -2,14 +2,20 @@ import { FC, useState, ChangeEventHandler, useEffect } from 'react'
 import { useDebounceFn } from 'ahooks'
 import { parseJson } from '@/utils/index'
 import { usePaste } from '@/hooks'
-import Block from '../Block'
+import styled from 'styled-components'
+import { BLOCK_SPACE } from '@/styles/theme'
+import Block from '@/components/Block'
 import { parse, Key } from './parse'
-import TextArea from './TextArea'
+import TextArea from '@/components/TextArea'
 import TooBar from './TooBar'
 
 export type InputSectionProps = {
   onParse: (error: any, data: any[], keys: Key[]) => void
 }
+
+const InputBlock = styled(Block)`
+  margin-right: ${BLOCK_SPACE}px;
+`
 
 const InputSection: FC<InputSectionProps> = ({ onParse }) => {
   const [jsonString, setValue] = useState('')
@@ -63,8 +69,9 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
   }, [debounceHandleParse, jsonString])
 
   return (
-    <Block
+    <InputBlock
       title="Input"
+      flex={1}
       bodyPadding={0}
       extra={
         <TooBar
@@ -77,10 +84,10 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
       <TextArea
         value={jsonString}
         bordered={false}
-        placeholder="please input your JSON..."
+        placeholder="Please input your json data ..."
         onChange={handleChange}
       />
-    </Block>
+    </InputBlock>
   )
 }
 
