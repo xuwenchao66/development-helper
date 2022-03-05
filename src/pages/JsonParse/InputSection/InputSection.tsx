@@ -1,6 +1,7 @@
 import { FC, useState, ChangeEventHandler, useEffect } from 'react'
 import { useDebounceFn } from 'ahooks'
 import { parseJson } from '@/utils/index'
+import { usePaste } from '@/hooks'
 import Block from '../Block'
 import { parse, Key } from './parse'
 import TextArea from './TextArea'
@@ -12,6 +13,7 @@ export type InputSectionProps = {
 
 const InputSection: FC<InputSectionProps> = ({ onParse }) => {
   const [jsonString, setValue] = useState('')
+  const { isPastable, paste } = usePaste()
 
   const handelError = (error: any) => {
     onParse(error, [], [])
@@ -51,7 +53,7 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
 
   const handlePaste = async () => {
     try {
-      const text = await navigator.clipboard.readText()
+      const text = await paste()
       setValue(text)
     } catch (error) {}
   }
@@ -68,7 +70,7 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
         <TooBar
           onReset={handelReset}
           onFormat={handleFormat}
-          onPaste={handlePaste}
+          onPaste={isPastable ? handlePaste : undefined}
         />
       }
     >

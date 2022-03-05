@@ -2,14 +2,14 @@ import { FC } from 'react'
 import { Button, Space } from 'antd'
 
 interface TooBarProps {
-  onPaste: () => void
+  onPaste?: () => void
   onFormat: () => void
   onReset: () => void
 }
 
 const TooBar: FC<TooBarProps> = ({ onPaste, onFormat, onReset }) => (
   <Space>
-    {navigator.clipboard && (
+    {onPaste && (
       <Button size="small" onClick={onPaste}>
         Paste
       </Button>
