@@ -1,7 +1,7 @@
-import { FC, useState, ChangeEventHandler, useEffect } from 'react'
+import { FC, ChangeEventHandler, useEffect } from 'react'
 import { useDebounceFn } from 'ahooks'
 import { parseJson } from '@/utils/index'
-import { usePaste } from '@/hooks'
+import { useString } from '@/hooks'
 import styled from 'styled-components'
 import { BLOCK_SPACE } from '@/styles/theme'
 import Block from '@/components/Block'
@@ -18,15 +18,14 @@ const InputBlock = styled(Block)`
 `
 
 const InputSection: FC<InputSectionProps> = ({ onParse }) => {
-  const [jsonString, setValue] = useState('')
-  const { isPastable, paste } = usePaste()
+  const [string, { set, isPastable, paste, clear }] = useString()
 
   const handelError = (error: any) => {
     onParse(error, [], [])
   }
 
   const handelReset = () => {
-    setValue('')
+    clear()
     onParse(null, [], [])
   }
 
@@ -46,27 +45,20 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
     const { value } = e.target
     if (!value) return handelReset()
 
-    setValue(value)
+    set(value)
   }
 
   const handleFormat = () => {
     try {
-      setValue(JSON.stringify(parseJson(jsonString), null, 2))
+      set(JSON.stringify(parseJson(string), null, 2))
     } catch (error) {
       handelError(error)
     }
   }
 
-  const handlePaste = async () => {
-    try {
-      const text = await paste()
-      setValue(text)
-    } catch (error) {}
-  }
-
   useEffect(() => {
-    debounceHandleParse(jsonString)
-  }, [debounceHandleParse, jsonString])
+    debounceHandleParse(string)
+  }, [debounceHandleParse, string])
 
   return (
     <InputBlock
@@ -77,12 +69,12 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
         <TooBar
           onReset={handelReset}
           onFormat={handleFormat}
-          onPaste={isPastable ? handlePaste : undefined}
+          onPaste={isPastable ? paste : undefined}
         />
       }
     >
       <TextArea
-        value={jsonString}
+        value={string}
         bordered={false}
         placeholder="Please input your json data ..."
         onChange={handleChange}
