@@ -7,13 +7,14 @@ import { BLOCK_SPACE } from '@/styles/theme'
 import { useString } from '@/hooks'
 import Container from './Container'
 import { TRANSFORMERS } from './constant'
+import TooBar from './TooBar'
 
 const TransformBlock = styled(Block)`
   margin-bottom: ${BLOCK_SPACE}px;
 `
 
 const StringTransform: FC = memo(() => {
-  const [string, { set, clear }] = useString()
+  const [string, { set, clear, isPastable, copy, paste }] = useString()
   const [transformed, setTransformed] = useState(false)
   const originalString = useRef(string)
 
@@ -54,7 +55,17 @@ const StringTransform: FC = memo(() => {
           ))}
         </Space>
       </TransformBlock>
-      <Block title="String" bodyPadding={0}>
+      <Block
+        title="String"
+        bodyPadding={0}
+        extra={
+          <TooBar
+            onClear={reset}
+            onCopy={copy}
+            onPaste={isPastable ? paste : undefined}
+          />
+        }
+      >
         <TextArea
           value={string}
           onChange={(e) => setString(e.target.value, true)}

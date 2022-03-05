@@ -1,4 +1,6 @@
 import { useCallback, useState, useMemo, Dispatch, SetStateAction } from 'react'
+import { message } from 'antd'
+import copy from 'copy-to-clipboard'
 
 export const usePaste = () => {
   const isPastable = !!navigator.clipboard
@@ -14,6 +16,7 @@ export interface UseStringActions {
   set: Dispatch<SetStateAction<string>>
   paste: () => void
   clear: () => void
+  copy: () => void
   isPastable: boolean
 }
 
@@ -33,13 +36,21 @@ export const useString = (
       } catch (error) {}
     }
 
+    const handleCopy = async () => {
+      try {
+        copy(string)
+        message.success('Copied.')
+      } catch (error) {}
+    }
+
     return {
+      isPastable,
       set,
       paste: handlePaste,
       clear: handleClear,
-      isPastable
+      copy: handleCopy
     }
-  }, [isPastable, paste])
+  }, [isPastable, paste, string])
 
   return [string, actions]
 }

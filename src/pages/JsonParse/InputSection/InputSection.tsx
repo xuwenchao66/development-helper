@@ -67,7 +67,7 @@ const InputSection: FC<InputSectionProps> = ({ onParse }) => {
       bodyPadding={0}
       extra={
         <TooBar
-          onReset={handelReset}
+          onClear={handelReset}
           onFormat={handleFormat}
           onPaste={isPastable ? paste : undefined}
         />
