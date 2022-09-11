@@ -1,3 +1,3 @@
 # Development Helper
 
-[https://development-helper.vercel.app/](https://development-helper.vercel.app/)
+[https://xuwenchao.site/development-helper/](https://xuwenchao.site/development-helper/)
