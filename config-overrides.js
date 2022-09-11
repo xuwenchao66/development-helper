@@ -9,5 +9,6 @@ const aliasMap = {
 module.exports = function override(config, env) {
   config = alias(aliasMap)(config)
   config = rewireStyledComponents(config, env)
+  config.output.publicPath = '/development-helper/'
   return config
 }
