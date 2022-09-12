@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { BrowserRouter } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import App from '@/app'
 
@@ -9,9 +9,9 @@ import './index.css'
 ReactDOM.render(
   <React.StrictMode>
     <ConfigProvider>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   </React.StrictMode>,
   document.getElementById('root')
